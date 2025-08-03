@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h3 class="my-3">Tags</h3>
+
+<ul class="list-group">
+  {% for tag in tags %}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <a href="{{ url_for('tags_edit', id=tag.id) }}">{{ tag.name }}</a>
+    <form method="POST" action="{{ url_for('tags_delete', id=tag.id) }}" onsubmit="return confirm('Delete this tag?');">
+      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+    </form>
+  </li>
+  {% else %}
+  <li class="list-group-item">No tags yet.</li>
+  {% endfor %}
+</ul>
+
+<a href="{{ url_for('tags_edit', id=0) }}" class="btn btn-primary mt-3">Create New Tag</a>
+
+{% endblock %}

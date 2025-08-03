@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block body %}
+<ul class="nav justify-content-center" style="padding-top: 1em;">
+  <li class="nav-item">
+    <a class="btn btn-primary" href="{{ url_for('notes_create') }}">Create</a>
+  </li>
+</ul>
+{% for note in notes %}
+<div class="card my-3">
+  <div class="card-body">
+    <h4 class="card-title">{{ note.title }}</h4>
+    <div class="card-text my-3">
+      {{ note.description }}
+    </div>
+    <div class="card-footer text-muted">
+      Tags: 
+      {% for t in note.tags %}
+        <a href="{{ url_for('tags_view', tag_name=t.name) }}">{{ t.name }}</a>
+        <!-- ปุ่มแก้ไขแท็ก -->
+        <a href="{{ url_for('tags_edit', tag_id=t.id) }}" class="btn btn-sm btn-warning">Edit Tag</a>
+        <form action="{{ url_for('tags_delete', tag_id=t.id) }}" method="POST" style="display:inline;">
+          <button type="submit" class="btn btn-sm btn-danger">Delete Tag</button>
+        </form>
+        &nbsp;
+      {% endfor %}
+      <br>
+      Last update: {{ note.updated_date }}
+
+      <!-- ปุ่มแก้ไขโน้ต -->
+      <a href="{{ url_for('notes_edit', note_id=note.id) }}" class="btn btn-primary btn-sm">Edit Note</a>
+
+      <!-- ปุ่มลบโน้ต -->
+      <form action="{{ url_for('notes_delete', note_id=note.id) }}" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-danger btn-sm">Delete Note</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

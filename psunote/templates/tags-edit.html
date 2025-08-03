@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h3>Edit Tag</h3>
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <div class="form-group my-3">
+    {{ form.name.label }}
+    {{ form.name(class_='form-control') }}
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+  <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+</form>
+
+{% endblock %}
